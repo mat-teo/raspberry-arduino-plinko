@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PLINKO!</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
+    }
+
+    #credito {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 150px auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      font-size: 16px;
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      background: #4caf50;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #43a047;
+    }
+    .unavailable {
+      background: #bdbdbd !important;
+      color: #757575 !important;
+      cursor: not-allowed !important;
+      opacity: 0.7;
+      border: none;
+    }
+    .subsection {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  {% if connesso %}
+    <div id="status" style="background-color: #4caf50; padding: 10px; text-align: center; font-weight: bold;">
+      ✅ Connesso
+    </div>
+  {% else %}
+    <div id="status" style="background-color: #f44336; padding: 10px; text-align: center; font-weight: bold;">
+      ❌ Errore nella connessione Bluetooth - Ricarica la pagina
+    </div>
+  {% endif %}
+
+  <div id="credito" style="display: flex; align-items: center; gap: 15px; margin-top: 3rem;">
+    <span>Ciao {{ username }}! Credito: €<span id="valoreCredito">{{ credito }}</span></span>
+    <form action="{{ url_for('logout') }}" method="get" style="margin:0;">
+      <button type="submit" style="
+        background: #f44336;
+        border: none;
+        border-radius: 12px;
+        color: white;
+        padding: 8px 15px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 14px;
+        transition: background 0.3s;
+      " onmouseover="this.style.background='#d32f2f'" onmouseout="this.style.background='#f44336'">
+        Logout
+      </button>
+    </form>
+  </div>
+
+  <div class="container">
+    <h1>Benvenuto al Gioco</h1>
+
+    <input type="text" id="puntata" placeholder="Inserisci puntata" />
+    {% if connesso %}
+      <button id="gioca" onclick="avviaGioco()" >🎮 Avvia Gioco</button>
+    {% else %}
+     <button id="gioca" onclick="avviaGioco()" class="unavailable" disabled="true" >🎮 Avvia Gioco</button>
+    {% endif %}
+
+    <div class="subsection">
+      <button onclick="apriModalPagamento()">➕ Ricarica con carta</button>
+
+      <div id="modalPagamento" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center;">
+        <div style="background:#fff; padding: 20px; border-radius: 15px; max-width: 400px; width: 90%; color:#000; position: relative;">
+          <h2>Inserisci dati carta di credito</h2>
+          <form id="formPagamento" onsubmit="return confermaPagamento(event)">
+            <input type="text" id="numeroCarta" placeholder="Numero carta (16 cifre)" maxlength="16" required style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
+            <input type="text" id="scadenza" placeholder="MM/AA" maxlength="5"  required style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
+            <input type="text" id="cvv" placeholder="CVV (3 cifre)" maxlength="3" required style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
+            <input type="text" id="importoPagamento" placeholder="Importo da ricaricare"  required style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
+            <button type="submit" style="background:#4caf50; color:white; border:none; padding:10px; border-radius: 10px; width: 100%; cursor:pointer;">Paga</button>
+          </form>
+          <button onclick="chiudiModalPagamento()" style="position:absolute; top:10px; right:15px; background:none; border:none; font-size:20px; cursor:pointer;">×</button>
+        </div>
+      </div>
+    </div> 
+
+  </div>
+
+  <div class="marquee-container">
+    <div class="marquee">
+      Benvenuto su PLINKO! Gioca responsabilmente. Buona fortuna! &nbsp; • &nbsp; {{ last3[0].show }} &nbsp; • &nbsp;{{ last3[1].show }} &nbsp; • &nbsp; {{ last3[2].show }} &nbsp; • &nbsp; Benvenuto su PLINKO! Gioca responsabilmente. Buona fortuna!
+    </div>
+  </div>
+  <style>
+    .marquee-container {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: rgba(30,60,114,0.95);
+      overflow: hidden;
+      height: 40px;
+      z-index: 1000;
+      border-top: 2px solid #4caf50;
+      display: flex;
+      align-items: center;
+    }
+    .marquee {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      animation: marquee-scroll 18s linear infinite;
+      font-size: 18px;
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    @keyframes marquee-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
+
+  <script>
+      controllaBluetooth();  
+      controllaEvento();
+      setInterval(controllaBluetooth, 8000);
+      setInterval(controllaEvento, 1000);
+
+      function controllaBluetooth() {
+        const xhttp = new XMLHttpRequest();
+        let stato ="";
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            stato = this.responseText.trim();
+            const statusDiv = document.getElementById("status");
+            if (stato === "CONNESSO") {
+              console.log("Bluetooth connesso");
+              statusDiv.style.backgroundColor = "#4caf50";
+              statusDiv.innerHTML = "✅ Connesso";
+              document.getElementById("gioca").classList="";
+              document.getElementById("gioca").disabled = false;
+            } else if (stato === "NON CONNESSO") {
+              console.log("Bluetooth non connesso");
+              statusDiv.style.backgroundColor = "#f44336";
+              statusDiv.innerHTML = "❌ Errore nella connessione Bluetooth";
+              document.getElementById("gioca").classList="unavailable";
+              document.getElementById("gioca").disabled = true;
+
+            } else {
+              console.log("Stato sconosciuto");
+              statusDiv.style.backgroundColor = "#ffc107";
+              statusDiv.innerHTML = "⚠ Stato sconosciuto";
+              document.getElementById("gioca").classList="unavailable";
+              document.getElementById("gioca").disabled = true;
+            }
+          }
+        };
+
+        xhttp.open("GET", "/getStatus", true);
+        xhttp.send();
+        return stato;
+      }
+
+
+      function controllaEvento(){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            const evento = JSON.parse(this.responseText);
+            if (evento.esito !== null) {
+                const parti = evento.esito.split(" ");
+                if(parti[0] == "W"){
+                  alert("Hai vinto " + parseFloat(parti[1]) * 2 + "€");
+                  credito+= (parseFloat(parti[1]) * 2)
+                  aggiornaCredito()
+                }
+                else if(parti[0] == "L"){
+                  alert("Hai perso " + parti[1] + "€");
+                }
+                else if(parti[0] == "H"){
+                  alert("Hai vinto " + parseFloat(parti[1]) * 3 / 2 + "€");
+                  credito+= (parseFloat(parti[1]) * 3 / 2)
+                  aggiornaCredito()
+                }else if(parti[0] == "S"){
+                  alert("Hai vinto " + parseFloat(parti[1]) / 2 + "€");
+                  credito+= (parseFloat(parti[1]) / 2)
+                  aggiornaCredito()
+                }
+                else{
+                  alert("Errore: " + evento.esito);
+                }
+            }
+          }
+        };
+
+        xhttp.open("GET", "/checkEvento", true);
+        xhttp.withCredentials = true;
+        xhttp.send();
+      }
+
+    let credito = parseFloat("{{ credito }}") || 0.00;
+
+    function aggiornaCredito() {
+      document.getElementById("valoreCredito").textContent = credito.toFixed(2);
+    }
+
+    function parseImporto(valore) {
+      return parseFloat(valore.replace(',', '.'));
+    }
+
+    function avviaGioco() {
+      const input = document.getElementById("puntata").value;
+      const puntata = parseImporto(input);
+
+      if (isNaN(puntata) || puntata <= 0) {
+        alert("Inserisci una cifra valida per la puntata.");
+        return;
+      }
+      if (puntata > credito) {
+        alert("Credito insufficiente per questa puntata.");
+        return;
+      }
+
+      //qua mettere che controlla se si sta gia giocando e se si è connessi
+      
+      if(controllaBluetooth() == "NON CONNESSO"){
+        alert("Errore nella connessione Bluetooth");
+        return;
+      }
+
+
+
+
+      credito -= puntata;
+      aggiornaCredito();
+      alert(`Hai scommesso €${puntata.toFixed(2)}. Il gioco è stato avviato!`);
+      document.getElementById("puntata").value = "";
+
+      fetch('/newgame', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ bet: puntata })
+      })
+      
+
+    }
+
+    function apriModalPagamento() {
+  document.getElementById('modalPagamento').style.display = 'flex';
+}
+
+function chiudiModalPagamento() {
+  document.getElementById('modalPagamento').style.display = 'none';
+}
+
+function confermaPagamento(event) {
+  event.preventDefault();
+
+  const numeroCarta = document.getElementById('numeroCarta').value.trim();
+  const scadenza = document.getElementById('scadenza').value.trim();
+  const cvv = document.getElementById('cvv').value.trim();
+  const importoStr = document.getElementById('importoPagamento').value.trim().replace(',', '.');
+  const importo = parseFloat(importoStr);
+
+  // Validazioni base
+  const numeroCartaRegex = /^\d{16}$/;
+  const scadenzaRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+  const cvvRegex = /^\d{3}$/;
+
+  if (!numeroCartaRegex.test(numeroCarta)) {
+    alert('Inserisci un numero carta valido (16 cifre).');
+    return false;
+  }
+
+  if (!scadenzaRegex.test(scadenza)) {
+    alert('Inserisci una scadenza valida (MM/AA).');
+    return false;
+  }
+
+  if (!cvvRegex.test(cvv)) {
+    alert('Inserisci un CVV valido (3 cifre).');
+    return false;
+  }
+
+  if (isNaN(importo) || importo <= 0) {
+    alert('Inserisci un importo valido.');
+    return false;
+  }
+
+  // Simuliamo la "transazione" con timeout
+  alert('Elaborazione pagamento...');
+  
+  setTimeout(() => {
+    // Aggiorniamo il credito chiamando l’endpoint /aggiorna_credito (come fai ora)
+    fetch('/aggiorna_credito', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ricarica: importo })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        credito = parseFloat(data.nuovo_credito);
+        aggiornaCredito();
+        alert(`Pagamento di €${importo.toFixed(2)} approvato! Credito aggiornato.`);
+        chiudiModalPagamento();
+        // Reset form
+        document.getElementById('formPagamento').reset();
+      } else {
+        alert('Errore nella ricarica: ' + (data.message || 'Errore sconosciuto'));
+      }
+    })
+    .catch(error => {
+      alert('Errore nella richiesta: ' + error);
+    });
+  }, 1500); // Simula un ritardo di 1.5s
+
+  return false;
+}
+
+const scadenzaInput = document.getElementById('scadenza');
+
+scadenzaInput.addEventListener('input', function(e) {
+  let value = scadenzaInput.value;
+  value = value.replace(/\D/g, '');
+
+  if (value.length > 2) {
+    value = value.slice(0,2) + '/' + value.slice(2,4);
+  }
+
+  scadenzaInput.value = value;
+});
+  </script>
+
+</body>
+</html>

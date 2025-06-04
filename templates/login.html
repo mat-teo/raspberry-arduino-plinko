@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.13);
+            padding: 36px 32px 28px 32px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 340px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.18);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #e3e3e3;
+            text-shadow: 0 2px 8px rgba(42,82,152,0.2);
+        }
+
+        .login-box input[type="text"],
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border: 1px solid #4caf50;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.2s, background 0.2s;
+            box-sizing: border-box;
+        }
+
+        .login-box input[type="text"]:focus,
+        .login-box input[type="password"]:focus {
+            border: 1.5px solid #fff;
+            background: rgba(76,175,80,0.08);
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(90deg, #4caf50 60%, #43a047 100%);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 17px;
+            cursor: pointer;
+            margin-top: 18px;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.15);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .login-box button:hover {
+            background: linear-gradient(90deg, #43a047 60%, #388e3c 100%);
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        .checkbox {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .checkbox input[type="checkbox"] {
+            accent-color: #4caf50;
+            margin-right: 7px;
+            width: 16px;
+            height: 16px;
+        }
+
+        .checkbox label {
+            font-size: 15px;
+            color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        .errore {
+            color: #ffb3b3;
+            background: rgba(255, 0, 0, 0.08);
+            font-size: 15px;
+            margin-bottom: 14px;
+            padding: 8px 0;
+            border-radius: 6px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #ffb3b3;
+        }
+
+        ::placeholder {
+            color: #e0e0e0;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" class="login-box">
+        <h2>Accedi</h2>
+
+        {% if errore %}
+            <div class="errore">{{ errore }}</div>
+        {% endif %}
+
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <div class="checkbox">
+            <input type="checkbox" name="remember" id="remember">
+            <label for="remember">Rimani loggato</label>
+        </div>
+        <p style="margin-top: 10px;">
+            Non hai un account? <a href="{{ url_for('register') }}" style="color: #b0eaff;">Registrati qui</a>
+        </p>
+        
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

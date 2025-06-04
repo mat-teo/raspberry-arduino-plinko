@@ -1,0 +1,227 @@
+{
+    "users": {
+        "matteo": {
+            "password": "segreta",
+            "name": "matteo",
+            "surname": "artifoni",
+            "credit": "17950.0",
+            "event": ""
+        },
+        "ciro": {
+            "password": "forzaNapoli",
+            "name": "ciro",
+            "surname": "esposito",
+            "credit": "220",
+            "event": ""
+        },
+        "zzinipara": {
+            "password": "123",
+            "name": "francesco",
+            "surname": "parazzini",
+            "credit": "3.0864197274691357e+66",
+            "event": ""
+        },
+        "<p>alessandroseifantastico</p>": {
+            "password": "<i href=\"ciao\" >aaaa</i>",
+            "name": "alessandro",
+            "surname": "alessandro",
+            "credit": "0",
+            "event": ""
+        },
+        "<p>alessandrosei</p>": {
+            "password": "alessandro",
+            "name": "alessandro",
+            "surname": "alessandro",
+            "credit": "3.513365419871974e+74",
+            "event": ""
+        }
+    },
+    "esiti": [
+        {
+            "esito": "W",
+            "player": "matteo",
+            "bet": "10",
+            "show": "matteo ha vinto 20 euro"
+        },
+        {
+            "esito": "L",
+            "player": "ciro",
+            "bet": "120",
+            "show": "matteo ha perso 120 euro"
+        },
+        {
+            "esito": "W",
+            "player": "palez",
+            "bet": "50",
+            "show": "palez ha vinto 50 euro"
+        },
+        {
+            "esito": "L",
+            "player": "matteo",
+            "bet": "20.0",
+            "show": "matteo ha perso 20.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "matteo",
+            "bet": "100.0",
+            "show": "matteo ha perso 100.0 euro"
+        },
+        {
+            "esito": "S",
+            "player": "matteo",
+            "bet": "750.0",
+            "show": "matteo ha vinto 250.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "matteo",
+            "bet": "150.0",
+            "show": "matteo ha vinto 150.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "matteo",
+            "bet": "1000.0",
+            "show": "matteo ha perso 1000.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "matteo",
+            "bet": "200.0",
+            "show": "matteo ha perso 200.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "matteo",
+            "bet": "200.0",
+            "show": "matteo ha perso 200.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "matteo",
+            "bet": "300.0",
+            "show": "matteo ha vinto 300.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "matteo",
+            "bet": "1000.0",
+            "show": "matteo ha perso 1000.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "matteo",
+            "bet": "3750.0",
+            "show": "matteo ha vinto 3750.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "matteo",
+            "bet": "6000.0",
+            "show": "matteo ha vinto 6000.0 euro"
+        },
+        {
+            "esito": "W",
+            "player": "zzinipara",
+            "bet": "200.0",
+            "show": "zzinipara ha vinto 200.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "zzinipara",
+            "bet": "1506.0",
+            "show": "zzinipara ha vinto 1506.0 euro"
+        },
+        {
+            "esito": "W",
+            "player": "zzinipara",
+            "bet": "3792.0",
+            "show": "zzinipara ha vinto 3792.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "zzinipara",
+            "bet": "6759.0",
+            "show": "zzinipara ha vinto 6759.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "zzinipara",
+            "bet": "250.0",
+            "show": "zzinipara ha perso 250.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "zzinipara",
+            "bet": "900.0",
+            "show": "zzinipara ha vinto 900.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "zzinipara",
+            "bet": "600.0",
+            "show": "zzinipara ha vinto 600.0 euro"
+        },
+        {
+            "esito": "W",
+            "player": "zzinipara",
+            "bet": "20000.0",
+            "show": "zzinipara ha vinto 20000.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "<p>alessandrosei</p>",
+            "bet": "10000000000.0",
+            "show": "<p>alessandrosei</p> ha perso 10000000000.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "<p>alessandrosei</p>",
+            "bet": "5.165456456456466e+28",
+            "show": "<p>alessandrosei</p> ha perso 5.165456456456466e+28 euro"
+        },
+        {
+            "esito": "L",
+            "player": "<p>alessandrosei</p>",
+            "bet": "1.0",
+            "show": "<p>alessandrosei</p> ha perso 1.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "<p>alessandrosei</p>",
+            "bet": "3.0",
+            "show": "<p>alessandrosei</p> ha perso 3.0 euro"
+        },
+        {
+            "esito": "L",
+            "player": "zzinipara",
+            "bet": "50.0",
+            "show": "zzinipara ha perso 50.0 euro"
+        },
+        {
+            "esito": "W",
+            "player": "zzinipara",
+            "bet": "240.0",
+            "show": "zzinipara ha vinto 240.0 euro"
+        },
+        {
+            "esito": "H",
+            "player": "zzinipara",
+            "bet": "1.8518518481481483e+23",
+            "show": "zzinipara ha vinto 1.8518518481481483e+23 euro"
+        },
+        {
+            "esito": "H",
+            "player": "zzinipara",
+            "bet": "1851851.8364814818",
+            "show": "zzinipara ha vinto 1851851.8364814818 euro"
+        },
+        {
+            "esito": "H",
+            "player": "zzinipara",
+            "bet": "1.8518518364814815e+66",
+            "show": "zzinipara ha vinto 1.8518518364814815e+66 euro"
+        }
+    ]
+}
