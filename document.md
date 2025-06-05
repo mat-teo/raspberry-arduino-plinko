@@ -13,83 +13,86 @@
 ---
 
 ## Obiettivi del Progetto
-- **Obiettivo Principale**: Ricreare il famoso gioco PLINKO, giocabile in una struttura fisica di legno, controllabile tramite interfaccia Flask in esecuzione su un raspberry per scommettere sui risultati, e con l'ausilio di un Arduino
+- **Obiettivo Principale**: Ricreare il famoso gioco PLINKO, giocabile in una struttura fisica di legno, controllabile tramite interfaccia Flask in esecuzione su un raspberry per scommettere sui risultati, e con l'ausilio di una scheda ESP
 - **Obiettivi Specifici**:
   1. Ricreare la struttura
-  2. Permettere di utilizzare l'arduino per giocare le partite e leggere i risultati
+  2. Permettere di utilizzare l'ESP per giocare le partite e leggere i risultati
   3. Realizzare l'interfaccia tramite flask per permettere all'utente la gestione delle partite e delle scommesse
 
 
 ## Descrizione del Progetto
-[Descrivere il progetto, includendo informazioni dettagliate su cosa si intende realizzare, il contesto e l'importanza per l'azienda.]
+Il progetto consiste nella realizzazione di un sistema di gioco interattivo che simula fisicamente il gioco Plinko.
+La pallina reale scende lungo una struttura in legno, e l’intero processo è controllato da un Raspberry Pi, che comunica via Bluetooth con una scheda ESP.
+Il Raspberry gestisce i crediti, avvia le partite e raccoglie i risultati, il tutto tramite un’interfaccia web sviluppata in Flask.
+Ogni utente può accedere all’interfaccia per avviare una partita e scommettere sui risultati, in un contesto sicuro e controllato.
+Il progetto unisce hardware e software in una soluzione integrata, educativa e coinvolgente.
 
 ## Ruoli e Responsabilità
 | Nome                  | Ruolo                     | Responsabilità                           |
 |-----------------------|---------------------------|--------------------------------------------|
-| [Nome del Membro 1]   | [Ruolo del Membro 1]      | [Descrizione delle responsabilità]         |
-| [Nome del Membro 2]   | [Ruolo del Membro 2]      | [Descrizione delle responsabilità]         |
-| [Nome del Membro 3]   | [Ruolo del Membro 3]      | [Descrizione delle responsabilità]         |
+| Artifoni Matteo   | Gestione login, connessione bluetooth lato raspberry e threading      | Garantire il funzionamento di registrazione e login, una concorrenza dei thread sincronizzata e una connessione bluetooth stabile         |
+| Shkina Fabian   | Realizzazione della struttura e implementazione dei sensori      | Realizzare struttura in legno che emuli il gioco PLINKO!, implementare la corretta lettura dei risultati tramite i 7 sensori a infrarossi        |
+| Paletta Andrea   | Lettura del risultato dal raspberry, modifiche credito utente e comunicazione esiti      | Assicurare l'avvenuta lettura dell'esito della partita, modificare il credituo dell'utente di conseguenza e comunicarlo all'utente         |
+| Inzoli Leonardo   | Interfaccie web tramite flask, gestione delle route e gestione connessione bluetooth lato ESP      | Realizzare un'interfaccia semplice e intuitiva web per l'esperienza utente, gestire le route di flask e il loro utilizzo e garantire connettività stabile dal lato ESP         |
 
 ## Timeline del Progetto
 | Fase                  | Data di Inizio  | Data di Fine  | Stato        |
 |-----------------------|----------------|---------------|--------------|
-| [Fase 1: Analisi]     | [Data]         | [Data]        | [Completata/In Corso] |
-| [Fase 2: Sviluppo]    | [Data]         | [Data]        | [Completata/In Corso] |
-| [Fase 3: Test]        | [Data]         | [Data]        | [Completata/In Corso] |
-| [Fase 4: Consegna]    | [Data]         | [Data]        | [Completata/In Corso] |
+| Analisi    | 28/03/2025         | 28/03/2025        | Completata |
+| Sviluppo    | 04/04/2025         | 23/05/2025        | Completata |
+| Test e bug fix        | 23/05/2025         | 30/05/2025        | Completata |
+| Consegna e documentazion    | 30/05/2025         | 04/06/2025        | Completata |
 
 ## Risorse
-- **Strumenti e Software**: [Elencare gli strumenti e software necessari]
-- **Personale Coinvolto**: [Numero di persone e competenze richieste]
+- **Strumenti e Software**:
+    Linguaggio: Python (per il backend e Flask)
+    Librerie: Flask, threading, pybluez (per comunicazione Bluetooth)
+    Software: VS code, browser web
+    Tecnologie: SSH, per comunicazione wireless con il raspberry
+    Framework: Flask per l’interfaccia utente
 
-E/o per le presentazioni, inserire le entità coinvolte nella comunicazionie, come avviene lo scambio di informazioni.
+- **Componenti Hardware**:
+    Scheda ESP
+    Raspberry pi
+    Struttura PLINKO in legno
+    Servomotori e sensori
 
-  _e.g. quali programmi sono utilizzati, quali librerie, con che linguaggio, per quale motivo sono stati utilizzati determinati framework, motivando le scelte fatte._
-
-Quindi definire anche in modo chiaro quali sono le componenti HW e quali quelle SW. 
-
-## Budget
-
-Inserire sia la tabella con il costo dei materiali, sia la parte di costo dello sviluppo della applicazione.
-
-#### Calcolo materiali
+#### materiali
 
 | Materiale                  | Costo  |
 |-----------------------|----------------|
-| Arduino    | 150€        |
+| ESP    | 150€        |
 | Raspberry    | 800€         |
-| Cavi        | 25€         |
+| Sensori infrarossi        | 70€         |
+| Servomotore        | 20€         |
+| Legno        | 20€         |
 
 
-Totale : 975€
+Totale : 1060€
 
 #### Calcolo costo personale
+4 studenti * 10€/h (indicativi) * 12 h = 480€
 
-- [FTE 1](https://it.wikipedia.org/wiki/Equivalente_a_tempo_pieno)
-- [FTE 2](https://factorial.it/blog/fte-equivalente-a-tempo-pieno/)
-
-Quindi definire: 
-- Numero di persone coinvolte, costo per ora per persona in base al ruolo all'interno del progetto _(presente esempio a [LINK1](https://it.wikipedia.org/wiki/Equivalente_a_tempo_pieno#Calcolo_FTE_necessari_per_un_progetto))_
-- Calcolare il costo totale in base alla timeline specifica definita precedentemente
-
+Costo totale progetto: 1540€
 
 ## Rischi e Mitigazioni
 
-- [ESG360](https://www.esg360.it/risk-management/gestione-del-rischio-tutto-quello-che-bisogna-sapere/)
-- [Esempio applicativo](https://www.kmu.admin.ch/kmu/it/home/consigli-pratici/questioni-finanziarie/gestione-del-rischio/pianificazione-dei-rischi/identificazione-del-rischio.html)
-
-
-Matrice della gestione del rischio: 
-
-![matrice](https://dnewpydm90vfx.cloudfront.net/wp-content/uploads/2018/06/Matrice-analisi-rischi_shutterstock_532416841.jpg.webp)
-
 | Rischio               | Probabilità | Impatto  | Mitigazione                              |
 |-----------------------|--------------|----------|------------------------------------------|
-| [Rischio 1]           | [Alta/Media/Bassa] | [Alta/Media/Bassa] | [Strategia di mitigazione]            |
-| [Rischio 2]           | [Alta/Media/Bassa] | [Alta/Media/Bassa] | [Strategia di mitigazione]            |
+| Comunicazione Bluetooth instabile           | Media | Alta | Testare più moduli Bluetooth, usare timeout e retry            |
+| Errore nel riconoscimento del risultato fisico           | Alta | Alta | Corretta implementazione dei sensori o validazione doppia del risultato            |
 
 ## Risultati Attesi
-[Descrivere i risultati attesi al termine del progetto, come metriche di successo o benefici per l'azienda.]
+Sistema funzionante di Plinko fisico con interfaccia web
+
+Gestione utenti e crediti integrata
+
+Partite avviabili da più utenti in maniera sicura e tracciata
+
+Sistema affidabile, con aggiornamenti in tempo reale dell’interfaccia
+
+Esperienza utente semplice, accessibile e stabile
 
 ## Conclusioni
-[Inserire un riepilogo finale del progetto, includendo eventuali raccomandazioni per il futuro.]
+Il progetto PLINKO! integra in modo efficace hardware e software per creare un’esperienza di gioco interattiva, didattica e tecnologicamente avanzata.
+È un esempio concreto di come concetti di programmazione, gestione hardware e interfacce utente possano essere applicati in un contesto reale.
